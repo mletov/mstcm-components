@@ -36,7 +36,8 @@ export const selectCalendarIsOpen = createSelector(
   selectCalendarFeature,
  // (state: CalendarState): boolean => state.isOpen
  function(state: CalendarState): boolean {
-  console.log(state)
+ // console.log(state)
+   // console.log(selectCalendarFeature);
     return state.isOpen;
  });
 

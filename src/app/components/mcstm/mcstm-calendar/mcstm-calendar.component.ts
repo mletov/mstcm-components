@@ -8,7 +8,7 @@ import { selectCalendarIsOpen, selectCalendarMode, selectCalendarDay, selectCale
 from './reducers/calendar/calendar.selectors';
 
 import {CalendarIncreaseYearAction, CalendarDecreaseYearAction, CalendarIncreaseMonthAction,
-  CalendarSelectDateAction,CalendarSetDefaultDateAction, CalendarOpenAction, CalendarCloseAction}
+  CalendarSelectDateAction,CalendarSetDefaultDateAction, OpenCalendarAction, CloseCalendarAction}
   from './reducers/calendar/calendar.actions';
 
 import {CalendarMode} from './enums/calendar-mode';
@@ -28,6 +28,9 @@ export class McstmCalendarComponent implements OnInit {
 
   //Получить из хранилища
   public calendarMode$: Observable<CalendarMode> = this.store$.pipe(select(selectCalendarMode));
+
+
+
 
   //Выбранная дата
   @Input()
@@ -53,15 +56,13 @@ export class McstmCalendarComponent implements OnInit {
   public onDateChange = new EventEmitter<Date>();
 
 
-  open() {
-      this.store$.dispatch(new CalendarOpenAction());
-      //this.isOpened = true;
+  calendarOpen() {
+      this.store$.dispatch(new OpenCalendarAction());
       this.onOpen.emit();
   }
 
-  close() {
-      this.store$.dispatch(new CalendarCloseAction());
-      //this.isOpened = false;
+  calendarClose() {
+    this.store$.dispatch(new CloseCalendarAction());
       this.onClose.emit();
   }
 
@@ -80,9 +81,14 @@ export class McstmCalendarComponent implements OnInit {
     }*/
   }
 
+
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
     if(this.eRef.nativeElement.contains(event.target)) {
+
+      this.calendarOpen();
+
+      /*
       if (event.target.classList.contains("day")) {
        // this.store$.dispatch(new DateChangeAction());
         this.dateChange();
@@ -90,11 +96,15 @@ export class McstmCalendarComponent implements OnInit {
       }
     } else {
       //this.isOpened = false;
+      */
     }
   }
 
   constructor(private eRef: ElementRef, private store$:Store<CalendarState>) {
-    console.log(store$);
+    //console.log(store$);
+
+   // this.isOpened$ = this.store$.pipe(select(selectCalendarIsOpen));
+    //this.isOpened$ = store$.select(fromRoot.getSelectedFilm);
 
   }
 

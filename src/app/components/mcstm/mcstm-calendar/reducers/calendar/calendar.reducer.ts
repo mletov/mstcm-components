@@ -1,5 +1,6 @@
+import { Action } from '@ngrx/store';
 import { CalendarMode } from '../../enums/calendar-mode';
-import { CalendarActions, calendarActionsType } from './calendar.actions';
+import { CalendarActions, calendarActionsType, OpenCalendarAction } from './calendar.actions';
 
 
 export const calendarNode = 'calendar';
@@ -22,7 +23,13 @@ const initialState: CalendarState = {
   calendarMode: CalendarMode.Days
 };
 
-export const calendarReducer = (state = initialState, action: CalendarActions) => {
+export const calendarReducer = (state = initialState, action: Action) => {
+  //export const calendarReducer = (state = initialState, action: OpenCalendarAction) => {
+
+  //alert(111);
+
+ // console.log(action.type);
+
   switch (action.type) {
     case calendarActionsType.increaseYear:
       return {
@@ -46,6 +53,7 @@ export const calendarReducer = (state = initialState, action: CalendarActions) =
           month: (state.month > 1) ? state.month - 1 : 12
         };
 
+        /*
         case calendarActionsType.selectDate:
           return {
             ...state,
@@ -53,20 +61,23 @@ export const calendarReducer = (state = initialState, action: CalendarActions) =
             year: new Date(action.payload.selectedDate).getFullYear,
             month: new Date(action.payload.selectedDate).getMonth,
             date: new Date(action.payload.selectedDate).getDay
-          };
+          };*/
 
-        case calendarActionsType.openCaledar:
+        case calendarActionsType.openCalendar:
+
           return {
             ...state,
             isOpen: true
           };
-          case calendarActionsType.closeCaledar:
-            return {
-              ...state,
-              isOpen: false
-            };
+
+        case calendarActionsType.closeCalendar:
+          return {
+            ...state,
+            isOpen: false
+          };
 
     default:
       return state;
+
   }
 }

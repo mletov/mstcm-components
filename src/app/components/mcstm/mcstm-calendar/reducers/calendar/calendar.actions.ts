@@ -7,8 +7,8 @@ export enum calendarActionsType {
   decreaseMonth = '[CALENDAR] decrease month',
   selectDate = '[CALENDAR] select date',
   setDefaultDate = '[CALENDAR] setDefaultDate',
-  openCaledar = '[CALENDAR] openCalendar',
-  closeCaledar = '[CALENDAR] closeCalendar',
+  openCalendar = '[CALENDAR] open',
+  closeCalendar = '[CALENDAR] close'
 }
 
 export class CalendarIncreaseYearAction implements Action {
@@ -46,12 +46,12 @@ export class CalendarSetDefaultDateAction implements Action {
   }
 }
 
-export class CalendarOpenAction implements Action {
-  readonly type = calendarActionsType.openCaledar;
+export class OpenCalendarAction implements Action {
+  readonly type = calendarActionsType.openCalendar;
 }
 
-export class CalendarCloseAction implements Action {
-  readonly type = calendarActionsType.closeCaledar;
+export class CloseCalendarAction implements Action {
+  readonly type = calendarActionsType.closeCalendar
 }
 
 export type CalendarActions = CalendarIncreaseYearAction
@@ -60,5 +60,6 @@ export type CalendarActions = CalendarIncreaseYearAction
   | CalendarDecreaseMonthAction
   | CalendarSelectDateAction
   | CalendarSetDefaultDateAction
-  | CalendarOpenAction
-  | CalendarCloseAction;
+  | OpenCalendarAction
+  | CloseCalendarAction;
+
