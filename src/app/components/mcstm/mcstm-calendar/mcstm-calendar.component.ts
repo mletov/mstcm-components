@@ -1,15 +1,21 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { CalendarDayItem } from 'src/app/components/mcstm/mcstm-calendar/utils/calendar-day-item';
-import { CalendarState } from './reducers/calendar/calendar.reducer';
+import {
+  CalendarState,
+  increaseYear,
+  decreaseYear,
+  increaseMonth,
+  decreaseMonth,
+  selectDate,
+  setDefaultDate,
+  openCalendar,
+  closeCalendar
+} from './reducers/calendar/calendar.reducer';
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 
 import { selectCalendarIsOpen, selectCalendarMode, selectCalendarDay, selectCalendarMonth, selectCalendarYear, selectCalendarDate }
 from './reducers/calendar/calendar.selectors';
-
-import {CalendarIncreaseYearAction, CalendarDecreaseYearAction, CalendarIncreaseMonthAction,
-  CalendarSelectDateAction,CalendarSetDefaultDateAction, OpenCalendarAction, CloseCalendarAction}
-  from './reducers/calendar/calendar.actions';
 
 import {CalendarMode} from './enums/calendar-mode';
 
@@ -28,9 +34,6 @@ export class McstmCalendarComponent implements OnInit {
 
   //Получить из хранилища
   public calendarMode$: Observable<CalendarMode> = this.store$.pipe(select(selectCalendarMode));
-
-
-
 
   //Выбранная дата
   @Input()
@@ -57,17 +60,17 @@ export class McstmCalendarComponent implements OnInit {
 
 
   calendarOpen() {
-      this.store$.dispatch(new OpenCalendarAction());
-      this.onOpen.emit();
+      this.store$.dispatch(openCalendar());
+      //this.onOpen.emit();
   }
 
   calendarClose() {
-    this.store$.dispatch(new CloseCalendarAction());
-      this.onClose.emit();
+    this.store$.dispatch(closeCalendar());
+    this.onClose.emit();
   }
 
   dateChange() {
-      this.store$.dispatch(new CalendarSelectDateAction({selectedDate: 123}));
+     // this.store$.dispatch(new CalendarSelectDateAction({selectedDate: 123}));
       this.onDateChange.emit();
   }
 
@@ -82,21 +85,20 @@ export class McstmCalendarComponent implements OnInit {
   }
 
 
+
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
+
     if(this.eRef.nativeElement.contains(event.target)) {
 
       this.calendarOpen();
-
       /*
       if (event.target.classList.contains("day")) {
-       // this.store$.dispatch(new DateChangeAction());
-        this.dateChange();
-       //this.isOpened = false;
-      }
+        this.calendarOpen();
+      }*/
     } else {
-      //this.isOpened = false;
-      */
+      this.calendarClose();
+      this.dateChange();
     }
   }
 

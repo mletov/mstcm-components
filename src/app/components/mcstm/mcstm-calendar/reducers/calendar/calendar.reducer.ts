@@ -1,9 +1,16 @@
-import { Action } from '@ngrx/store';
+import {createAction, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
 import { CalendarMode } from '../../enums/calendar-mode';
-import { CalendarActions, calendarActionsType, OpenCalendarAction } from './calendar.actions';
-
 
 export const calendarNode = 'calendar';
+
+export const increaseYear = createAction('[CALENDAR] increase year');
+export const decreaseYear = createAction('[CALENDAR] decrease year');
+export const increaseMonth = createAction('[CALENDAR] increase month');
+export const decreaseMonth = createAction('[CALENDAR] decrease month');
+export const selectDate = createAction('[CALENDAR] select date');
+export const setDefaultDate = createAction('[CALENDAR] setDefaultDate');
+export const openCalendar = createAction('[CALENDAR] open');
+export const closeCalendar = createAction('[CALENDAR] close');
 
 export interface CalendarState {
   year: number;
@@ -23,12 +30,51 @@ const initialState: CalendarState = {
   calendarMode: CalendarMode.Days
 };
 
-export const calendarReducer = (state = initialState, action: Action) => {
-  //export const calendarReducer = (state = initialState, action: OpenCalendarAction) => {
+export const calendarReducer = createReducer(
+  initialState,
+  on(increaseYear, state => ({
+    ...state,
+    year: state.year + 1
+  })),
+  on(decreaseYear, state => ({
+    ...state,
+    year: state.year + 1
+  })),
+  on(increaseMonth, state => ({
+    ...state,
+    year: state.year + 1
+  })),
+  on(decreaseMonth, state => ({
+    ...state,
+    year: state.year + 1
+  })),
+  on(selectDate, state => ({
+    ...state,
+    year: state.year + 1
+  })),
+  on(setDefaultDate, state => ({
+    ...state,
+    year: state.year + 1
+  })),
+  on(openCalendar, state => ({
+    ...state,
+    isOpen: true
+  })),
+  on(closeCalendar, state => ({
+    ...state,
+    isOpen: false
+  })),
+);
+
+/*
+//export const calendarReducer = (state = initialState, action: Action) => {
+  export const calendarReducer = (state = initialState, action: OpenCalendarAction) => {
 
   //alert(111);
 
  // console.log(action.type);
+
+ return state;
 
   switch (action.type) {
     case calendarActionsType.increaseYear:
@@ -53,15 +99,15 @@ export const calendarReducer = (state = initialState, action: Action) => {
           month: (state.month > 1) ? state.month - 1 : 12
         };
 
-        /*
-        case calendarActionsType.selectDate:
-          return {
-            ...state,
-            selectedDate: action.payload.selectedDate,
-            year: new Date(action.payload.selectedDate).getFullYear,
-            month: new Date(action.payload.selectedDate).getMonth,
-            date: new Date(action.payload.selectedDate).getDay
-          };*/
+
+        //case calendarActionsType.selectDate:
+        //  return {
+        //    ...state,
+        //    selectedDate: action.payload.selectedDate,
+         //   year: new Date(action.payload.selectedDate).getFullYear,
+         //   month: new Date(action.payload.selectedDate).getMonth,
+         //   date: new Date(action.payload.selectedDate).getDay
+         // };
 
         case calendarActionsType.openCalendar:
 
@@ -80,4 +126,4 @@ export const calendarReducer = (state = initialState, action: Action) => {
       return state;
 
   }
-}
+}*/

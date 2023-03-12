@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+/*import { Action } from '@ngrx/store';
 
 export enum calendarActionsType {
   increaseYear = '[CALENDAR] increase year',
@@ -63,3 +63,4 @@ export type CalendarActions = CalendarIncreaseYearAction
   | OpenCalendarAction
   | CloseCalendarAction;
 
+*/

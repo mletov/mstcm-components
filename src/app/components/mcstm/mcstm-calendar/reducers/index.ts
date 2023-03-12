@@ -5,7 +5,7 @@ import {
 import { environment } from '../environments/environment';
 import {calendarNode, calendarReducer, CalendarState} from './calendar/calendar.reducer';
 import { CalendarMode } from '../enums/calendar-mode';
-import { OpenCalendarAction } from './calendar/calendar.actions';
+//import { OpenCalendarAction } from './calendar/calendar.actions';
 
 export interface State {
   [calendarNode]: CalendarState;
