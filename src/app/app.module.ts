@@ -1,23 +1,26 @@
+
+
+
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
-/*
+
 import { StoreModule } from "@ngrx/store";
 import { AppRoutingModule } from "./app-routing.module";
-import { McstmCalendarComponent } from "./modules/mcstm-calendar/mcstm-calendar-component/mcstm-calendar.component";
 import { McstmCalendarModule } from "./modules/mcstm-calendar/mcstm-calendar.module";
-*/
-NgModule({
+
+@NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
     BrowserModule,
     //AppRoutingModule,
-	//  McstmCalendarModule
+	  McstmCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
 
