@@ -1,23 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener, ElementRef, ViewChild } from '@angular/core';
-import { CalendarDayItem } from 'src/app/components/mcstm/mcstm-calendar/utils/calendar-day-item';
-import {
-  CalendarState,
-  increaseYear,
-  decreaseYear,
-  increaseMonth,
-  decreaseMonth,
-  selectDate,
-  setDefaultDate,
-  openCalendar,
-  closeCalendar
-} from './reducers/calendar/calendar.reducer';
+
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
+import { CalendarMode } from '../enums/calendar-mode';
+import { CalendarState, closeCalendar, openCalendar } from '../store/reducers/calendar.reducer';
+import { selectCalendarDate, selectCalendarIsOpen, selectCalendarMode } from '../store/selectors/calendar.selectors';
 
-import { selectCalendarIsOpen, selectCalendarMode, selectCalendarDay, selectCalendarMonth, selectCalendarYear, selectCalendarDate }
-from './reducers/calendar/calendar.selectors';
 
-import {CalendarMode} from './enums/calendar-mode';
 
 @Component({
   selector: 'app-mcstm-calendar',

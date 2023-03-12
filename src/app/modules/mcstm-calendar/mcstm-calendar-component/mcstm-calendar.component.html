@@ -8,7 +8,9 @@
 
       <container-element [ngSwitch]="calendarMode$ | async">
 
-        <div *ngSwitchCase="CalendarMode.Days">Дни</div>
+        <div *ngSwitchCase="CalendarMode.Days">
+          <div *ngFor='let in of counter(42) ;let i = index' class="day">{{i}}</div>
+        </div>
         <div *ngSwitchCase="CalendarMode.Months">Месяцы</div>
         <div *ngSwitchCase="CalendarMode.Years">Годы</div>
 
@@ -18,9 +20,4 @@
     </div>
 </div>
 
-<!--
 
-  -->
-      <!--
-        <div *ngFor='let in of counter(42) ;let i = index' class="day">{{i}}</div>
-      -->

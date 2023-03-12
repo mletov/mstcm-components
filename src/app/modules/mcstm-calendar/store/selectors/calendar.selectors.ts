@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { calendarNode, CalendarState } from './calendar.reducer';
+import { calendarNode, CalendarState } from '../reducers/calendar.reducer';
 
 export const selectCalendarFeature = createFeatureSelector<CalendarState>(calendarNode);
 
