@@ -13,11 +13,13 @@ import { environment } from './environments/environment';
 import { McstmGridComponent } from '../mcstm-grid/mcstm-grid/mcstm-grid.component';
 
 import { CommonModule } from '@angular/common';
+import { McstmCalendarDayModule } from './mcstm-calendar-component/mstcm-calendar-day/mcstm-calendar-day.module';
+import { McstmCalendarMonthModule } from './mcstm-calendar-component/mcstm-calendar-month/mcstm-calendar-month.module';
+import { McstmCalendarYearModule } from './mcstm-calendar-component/mcstm-calendar-year/mcstm-calendar-year.module';
 
 
 @NgModule({
   declarations: [
-    McstmGridComponent,
     McstmCalendarComponent
   ],
   imports: [
@@ -27,10 +29,12 @@ import { CommonModule } from '@angular/common';
       metaReducers
     }),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
+    McstmCalendarDayModule,
+    McstmCalendarMonthModule,
+    McstmCalendarYearModule
   ],
   exports: [
-    McstmGridComponent,
     McstmCalendarComponent
   ],
   providers: [],

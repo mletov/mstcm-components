@@ -1,18 +1,20 @@
-<p>mcstm-calendar works!</p>
 <div class="mcstm-calendar-block">
     <input type="text" (click)="toggleCalendar()" #calendarInput />
-    {{calendarMode$ | async}}
     <div class="mcstm-calendar" *ngIf="isOpened$ | async" #calendarBlock >
 
 
 
       <container-element [ngSwitch]="calendarMode$ | async">
 
-        <div *ngSwitchCase="CalendarMode.Days">
-          <div *ngFor='let in of counter(42) ;let i = index' class="day">{{i}}</div>
-        </div>
-        <div *ngSwitchCase="CalendarMode.Months">Месяцы</div>
-        <div *ngSwitchCase="CalendarMode.Years">Годы</div>
+        <ng-container *ngSwitchCase="CalendarMode.Days">
+          <app-mcstm-calendar-day></app-mcstm-calendar-day>
+        </ng-container>
+        <ng-container *ngSwitchCase="CalendarMode.Months">
+          <app-mcstm-calendar-month></app-mcstm-calendar-month>
+        </ng-container>
+        <ng-container *ngSwitchCase="CalendarMode.Years">
+          <app-mcstm-calendar-year></app-mcstm-calendar-year>
+        </ng-container>
 
       </container-element>
 
