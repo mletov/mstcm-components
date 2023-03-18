@@ -1,11 +1,32 @@
 .mcstm-calendar__days {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: 10px;
+  row-gap: 10px;
   width: 100%;
+
+  .day {
+    cursor: pointer;
+    padding: 0;
+    text-align: center;
+  }
+
+  .week-day {
+    font-weight: bold;
+  }
+
 }
 
-.day {
-  cursor: pointer;
-  padding: 5px 0 0 0;
-  text-align: center;
+.mcstm-calendar__days_navigation {
+  border-bottom: 1px solid #000000;
+  display: grid;
+  grid-template-columns: 16px auto 16px;
+
+  .arrow {
+    cursor: pointer;
+    font-size: 16px;
+  }
 }
+
+
+

@@ -15,11 +15,19 @@ export class McstmCalendarDayComponent {
 
   public startWeekDay$: Observable<number> = this.store$.pipe(select(selectCalendarTimePeriodMonthStartWeekDay));
 
-//selectCalendarTimePeriodMonthInfo
   public timePeriodMonthInfo$: Observable<any> = this.store$.pipe(select(selectCalendarTimePeriodMonthInfo));
 
   constructor(private eRef: ElementRef, private store$:Store<CalendarState>) {
 
+
+  }
+
+
+  public goPrevMonth() {
+
+  }
+
+  public goNextMonth() {
 
   }
 

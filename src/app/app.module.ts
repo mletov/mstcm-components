@@ -15,7 +15,6 @@ import { McstmCalendarModule } from "./modules/mcstm-calendar/mcstm-calendar.mod
   ],
   imports: [
     BrowserModule,
-    //AppRoutingModule,
 	  McstmCalendarModule
   ],
   providers: [],

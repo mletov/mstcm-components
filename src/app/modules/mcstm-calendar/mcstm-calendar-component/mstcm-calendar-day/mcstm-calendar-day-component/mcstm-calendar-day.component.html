@@ -4,8 +4,21 @@
 {{timePeriodMonthInfo$ | async }}
 -->
 
-
+  <div class="mcstm-calendar__days_navigation">
+    <div class="arrow" (click)="goPrevMonth()">&#9664;</div>
+    <div></div>
+    <div class="arrow" (click)="goNextMonth()">&#9654;</div>
+  </div>
   <div class="mcstm-calendar__days">
+
+     <div class="week-day">Пн</div>
+     <div class="week-day">Вт</div>
+     <div class="week-day">Ср</div>
+     <div class="week-day">Чт</div>
+     <div class="week-day">Пт</div>
+     <div class="week-day">Сб</div>
+     <div class="week-day">Вс</div>
+
     <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
         <div *ngFor='let day of info.days;let i = index' class="day">
           {{day.dayNum}}

@@ -1,5 +1,5 @@
 import {createAction, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
-import { CalendarMode } from '../../enums/calendar-mode';
+import { CalendarMode } from '../../dicts/calendar-mode';
 
 export const calendarNode = 'calendar';
 
@@ -13,8 +13,8 @@ export const openCalendar = createAction('[CALENDAR] open');
 export const closeCalendar = createAction('[CALENDAR] close');
 
 const d = new Date();
-//const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-const currentDate = new Date(2020, 2, 1);
+const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+//const currentDate = new Date(2020, 2, 1);
 
 export interface CalendarState {
   selectedDate: Date;
