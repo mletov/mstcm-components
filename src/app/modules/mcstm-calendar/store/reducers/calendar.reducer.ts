@@ -13,7 +13,8 @@ export const openCalendar = createAction('[CALENDAR] open');
 export const closeCalendar = createAction('[CALENDAR] close');
 
 const d = new Date();
-const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+//const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const currentDate = new Date(2020, 2, 1);
 
 export interface CalendarState {
   selectedDate: Date;

@@ -45,11 +45,15 @@ export const selectCalendarIsOpen = createSelector(
     selectCalendarFeature,
     (state: CalendarState): any => {
 
+     // console.log(state.timePeriodDate);
+
       //console.log(state.timePeriodDate.getMonth() );
-      const startWeekDay: number = new Date(state.timePeriodDate.getFullYear(), state.timePeriodDate.getMonth(), 1).getDay();
+      const firstDayOfMonth = new Date(state.timePeriodDate.getFullYear(), state.timePeriodDate.getMonth(), 1);
+      const startWeekDay: number = firstDayOfMonth.getDay() > 0 ? firstDayOfMonth.getDay() : 7;
       const countMonthDays: number = new Date(state.timePeriodDate.getFullYear(), state.timePeriodDate.getMonth() + 1, 0).getDate();
       const days: CalendarDayItem[] = [];
       const daysFromStartGrid: number = countMonthDays + startWeekDay - 1;
+
 
       const gridRowsCount: number = (daysFromStartGrid%7 === 0)
       ? Math.floor(daysFromStartGrid/7)
@@ -58,6 +62,7 @@ export const selectCalendarIsOpen = createSelector(
       const gridCellsCount: number = gridRowsCount * 7;
 
       for (let i = 0; i < gridCellsCount;i++) {
+
 
         let year = state.timePeriodDate.getFullYear();
         let month = state.timePeriodDate.getMonth();

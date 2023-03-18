@@ -18,9 +18,6 @@ export class McstmCalendarDayComponent {
 //selectCalendarTimePeriodMonthInfo
   public timePeriodMonthInfo$: Observable<any> = this.store$.pipe(select(selectCalendarTimePeriodMonthInfo));
 
-
-
-
   constructor(private eRef: ElementRef, private store$:Store<CalendarState>) {
 
 

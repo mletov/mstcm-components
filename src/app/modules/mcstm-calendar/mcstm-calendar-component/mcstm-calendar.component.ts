@@ -102,9 +102,7 @@ export class McstmCalendarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  counter(i: number) {
-    return new Array(i);
-  }
+
 
 }
 
