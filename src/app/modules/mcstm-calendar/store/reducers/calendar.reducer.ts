@@ -12,49 +12,49 @@ export const setDefaultDate = createAction('[CALENDAR] setDefaultDate');
 export const openCalendar = createAction('[CALENDAR] open');
 export const closeCalendar = createAction('[CALENDAR] close');
 
+const d = new Date();
+const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
 export interface CalendarState {
-  year: number;
-  month: number;
-  day: number;
-  selectedDate: number;
+  selectedDate: Date;
+  timePeriodDate: Date;
   isOpen: boolean;
   calendarMode: CalendarMode;
 }
 
 const initialState: CalendarState = {
-  year: new Date().getFullYear(),
-  month: new Date().getMonth(),
-  day: new Date().getDay(),
-  selectedDate: Date.now(),
+  selectedDate: currentDate,
+  timePeriodDate: currentDate,
   isOpen: false,
   calendarMode: CalendarMode.Days
 };
+
 
 export const calendarReducer = createReducer(
   initialState,
   on(increaseYear, state => ({
     ...state,
-    year: state.year + 1
+   // year: state.year + 1
   })),
   on(decreaseYear, state => ({
     ...state,
-    year: state.year + 1
+   // year: state.year + 1
   })),
   on(increaseMonth, state => ({
     ...state,
-    year: state.year + 1
+    //year: state.year + 1
   })),
   on(decreaseMonth, state => ({
     ...state,
-    year: state.year + 1
+   // year: state.year + 1
   })),
   on(selectDate, state => ({
     ...state,
-    year: state.year + 1
+    //year: state.year + 1
   })),
   on(setDefaultDate, state => ({
     ...state,
-    year: state.year + 1
+   // year: state.year + 1
   })),
   on(openCalendar, state => ({
     ...state,

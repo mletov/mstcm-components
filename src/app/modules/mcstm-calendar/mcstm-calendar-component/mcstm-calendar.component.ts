@@ -26,7 +26,7 @@ export class McstmCalendarComponent implements OnInit {
 
   //Выбранная дата
   @Input()
-  public selectedDate$ : Observable<number> = this.store$.pipe(select(selectCalendarDate));
+  public selectedDate$ : Observable<Date> = this.store$.pipe(select(selectCalendarDate));
 
   //Поле ввода даты
   @ViewChild("calendarInput")

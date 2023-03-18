@@ -1,1 +1,15 @@
-<p>mcstm-calendar-day-component works!</p>
+<!--
+{{ (countDays$ | async)  }}
+{{startWeekDay$ | async}}
+{{timePeriodMonthInfo$ | async }}
+-->
+
+
+  <div class="mcstm-calendar__days">
+    <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
+        <div *ngFor='let day of info.days;let i = index' class="day">
+          {{day.dayNum}}
+        </div>
+    </ng-container>
+  </div>
+

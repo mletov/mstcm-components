@@ -1,10 +1,6 @@
-<div class="mcstm-calendar-block">
+<div class="mcstm-calendar">
     <input type="text" (click)="toggleCalendar()" #calendarInput />
-    <div class="mcstm-calendar" *ngIf="isOpened$ | async" #calendarBlock >
-
-
-
-      <container-element [ngSwitch]="calendarMode$ | async">
+      <container-element [ngSwitch]="calendarMode$ | async" *ngIf="isOpened$ | async" #calendarBlock>
 
         <ng-container *ngSwitchCase="CalendarMode.Days">
           <app-mcstm-calendar-day></app-mcstm-calendar-day>
@@ -17,9 +13,6 @@
         </ng-container>
 
       </container-element>
-
-
-    </div>
 </div>
 
 
