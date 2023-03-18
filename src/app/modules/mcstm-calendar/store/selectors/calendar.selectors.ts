@@ -74,7 +74,7 @@ export const selectCalendarIsOpen = createSelector(
         item.date = (day > 0 && i < (daysFromStartGrid)) ? new Date(year, month, day) : null;
         days.push(item);
 
-        console.log(i, day, item.date);
+        //console.log(i, day, item.date);
 
       }
 

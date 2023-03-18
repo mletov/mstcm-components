@@ -11,9 +11,6 @@ import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePer
 })
 export class McstmCalendarDayComponent {
 
-  public countDays$: Observable<number> = this.store$.pipe(select(selectCalendarTimePeriodMonthCountDays));
-
-  public startWeekDay$: Observable<number> = this.store$.pipe(select(selectCalendarTimePeriodMonthStartWeekDay));
 
   public timePeriodMonthInfo$: Observable<any> = this.store$.pipe(select(selectCalendarTimePeriodMonthInfo));
 
@@ -22,6 +19,15 @@ export class McstmCalendarDayComponent {
 
   }
 
+  public selectDate(event:any) {
+    const target = event.target || event.srcElement || event.currentTarget;
+    const dayNum: number = parseInt(target.innerHTML.trim());
+    //console.log(event);
+    /*  var target = event.target || event.srcElement || event.currentTarget;
+    var idAttr = target.attributes.id;
+    var value = idAttr.nodeValue; */
+
+  }
 
   public goPrevMonth() {
 

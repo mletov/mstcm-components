@@ -1,5 +1,5 @@
 import {createAction, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
-import { CalendarMode } from '../../dicts/calendar-mode';
+import { CalendarMode } from '../../dicts/calendar-mode.dict';
 
 export const calendarNode = 'calendar';
 

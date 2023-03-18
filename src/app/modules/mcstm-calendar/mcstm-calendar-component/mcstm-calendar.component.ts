@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, HostListener, ElementRe
 
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { CalendarMode } from '../dicts/calendar-mode';
+import { CalendarMode } from '../dicts/calendar-mode.dict';
 import { CalendarState, closeCalendar, openCalendar } from '../store/reducers/calendar.reducer';
 import { selectCalendarDate, selectCalendarIsOpen, selectCalendarMode } from '../store/selectors/calendar.selectors';
 
