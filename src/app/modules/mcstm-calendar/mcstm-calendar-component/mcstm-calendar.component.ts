@@ -63,28 +63,11 @@ export class McstmCalendarComponent implements OnInit {
       this.onDateChange.emit();
   }
 
-  toggleCalendar() {
-    /*
-    if (this.isOpened) {
-      close();
-    }
-    else {
-      this.open();
-    }*/
-  }
-
-
-
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
 
     if(this.eRef.nativeElement.contains(event.target)) {
-
       this.calendarOpen();
-      /*
-      if (event.target.classList.contains("day")) {
-        this.calendarOpen();
-      }*/
     } else {
       this.calendarClose();
       this.dateChange();

@@ -1,1 +1,3 @@
 https://dev.to/brandontroberts/maximizing-and-simplifying-component-views-with-ngrx-selectors-286j
+
+https://medium.com/angular-in-depth/ngrx-action-creators-redesigned-d396960e46da

@@ -1,4 +1,4 @@
-import {createAction, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
+import {Action, createAction, createFeatureSelector, createReducer, createSelector, on, props} from '@ngrx/store';
 import { CalendarMode } from '../../dicts/calendar-mode.dict';
 import { DateHelper } from '../../helpers/date.helper';
 
@@ -8,10 +8,10 @@ export const increaseYear = createAction('[CALENDAR] increase year');
 export const decreaseYear = createAction('[CALENDAR] decrease year');
 export const increaseMonth = createAction('[CALENDAR] increase month');
 export const decreaseMonth = createAction('[CALENDAR] decrease month');
-export const selectDate = createAction('[CALENDAR] select date');
-export const setDefaultDate = createAction('[CALENDAR] setDefaultDate');
 export const openCalendar = createAction('[CALENDAR] open');
 export const closeCalendar = createAction('[CALENDAR] close');
+export const setSelectedDate = createAction('[CALENDAR] Select date', props<{date: Date; }>());
+export const setTimePeriodDate = createAction('[CALENDAR] Set time period date', props<{date: Date; }>());
 
 const d = new Date();
 const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -48,14 +48,6 @@ export const calendarReducer = createReducer(
     ...state,
     timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getMonth() - 1))
   })),
-  on(selectDate, state => ({
-    ...state,
-    //year: state.year + 1
-  })),
-  on(setDefaultDate, state => ({
-    ...state,
-   // year: state.year + 1
-  })),
   on(openCalendar, state => ({
     ...state,
     isOpen: true
@@ -64,66 +56,50 @@ export const calendarReducer = createReducer(
     ...state,
     isOpen: false
   })),
+  on(setSelectedDate, (state, { date }) => ({
+    ...state,
+    timePeriodDate: date
+  })),
+  on(setTimePeriodDate, (state, { date }) => ({
+    ...state,
+    selectedDate: date
+  })),
 );
 
+
 /*
-//export const calendarReducer = (state = initialState, action: Action) => {
-  export const calendarReducer = (state = initialState, action: OpenCalendarAction) => {
+//OLD STYLE
 
-  //alert(111);
+export const SET_SELECTED_DATE = '[CALENDAR] Select date';
+export const ADD_TIME_PERIOD_DATE = '[CALENDAR] Set tiem period date';
 
- // console.log(action.type);
+class SetSelectedDateAction implements Action {
+  readonly type = SET_SELECTED_DATE;
 
- return state;
+  constructor(public payload: Date) { }
+}
 
+class SetTimePeriodDateAction implements Action {
+  readonly type = ADD_TIME_PERIOD_DATE;
+
+  constructor(public payload: Date) { }
+}
+
+export const calendarReducerSetDate = (state = initialState, action: Action) => {
   switch (action.type) {
-    case calendarActionsType.increaseYear:
+
+    case SET_SELECTED_DATE:
       return {
         ...state,
-        year: state.year + 1
+        timePeriodDate: (action as SetSelectedDateAction).payload
       };
-      case calendarActionsType.decreaseYear:
+
+      case ADD_TIME_PERIOD_DATE:
         return {
           ...state,
-          year: state.year - 1
+          selectedDate: (action as SetTimePeriodDateAction).payload
         };
-
-        case calendarActionsType.increaseMonth:
-      return {
-        ...state,
-        month: (state.month < 12) ? state.month + 1 : 1
-      };
-      case calendarActionsType.decreaseMonth:
-        return {
-          ...state,
-          month: (state.month > 1) ? state.month - 1 : 12
-        };
-
-
-        //case calendarActionsType.selectDate:
-        //  return {
-        //    ...state,
-        //    selectedDate: action.payload.selectedDate,
-         //   year: new Date(action.payload.selectedDate).getFullYear,
-         //   month: new Date(action.payload.selectedDate).getMonth,
-         //   date: new Date(action.payload.selectedDate).getDay
-         // };
-
-        case calendarActionsType.openCalendar:
-
-          return {
-            ...state,
-            isOpen: true
-          };
-
-        case calendarActionsType.closeCalendar:
-          return {
-            ...state,
-            isOpen: false
-          };
-
-    default:
-      return state;
-
+      default:
+          return state;
   }
 }*/

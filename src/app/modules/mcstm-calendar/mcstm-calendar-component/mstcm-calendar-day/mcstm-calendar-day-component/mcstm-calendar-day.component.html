@@ -25,18 +25,21 @@
      <div class="week-day">Вс</div>
 
     <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
-      <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
-        <ng-container *ngFor='let day of info.days;let i = index' >
-          <div [ngClass]="{
-              'day': 'true',
-              'empty': !day.dayNum,
-              'selected': false
-            }"
-            (click)="day.dayNum ? selectDate($event) : null">
-            {{day.dayNum}}
-          </div>
-        </ng-container>
-      </ng-container>
+      <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">
+                <ng-container *ngIf="selectedDate$ | async as selectedDate">
+                      <ng-container *ngFor='let day of info.days;let i = index' >
+                        <div [ngClass]="{
+                            'day': 'true',
+                            'empty': !day.dayNum,
+                            'selected': isSelected(day.dayNum, timePeriodDate, selectedDate),
+                            'today': isToday(day.dayNum, timePeriodDate)
+                          }"
+                          (click)="day.dayNum ? selectDate($event, timePeriodDate) : null">
+                          {{day.dayNum}}
+                        </div>
+                      </ng-container>
+                </ng-container>
+          </ng-container>
     </ng-container>
   </div>
 

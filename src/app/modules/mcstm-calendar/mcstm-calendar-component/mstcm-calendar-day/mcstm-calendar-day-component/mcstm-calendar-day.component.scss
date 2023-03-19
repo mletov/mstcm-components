@@ -7,16 +7,17 @@
 
   .day {
     cursor: pointer;
-    padding: 0;
+    padding: 2px 0 1px 0;
     text-align: center;
+    border-radius: 50%;
   }
 
   .day.today {
-
+    background: lightblue;
   }
 
-  .day.click {
-
+  .day.selected {
+    background-color: bisque;
   }
 
   .day.event {
