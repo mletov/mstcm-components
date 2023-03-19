@@ -1,8 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CalendarState } from '../../../store/reducers/calendar.reducer';
-import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePeriodMonthCountDays, selectCalendarTimePeriodMonthInfo, selectCalendarTimePeriodMonthStartWeekDay } from '../../../store/selectors/calendar.selectors';
+import { CalendarState, decreaseMonth, increaseMonth } from '../../../store/reducers/calendar.reducer';
+import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePeriodMonthCountDays, selectCalendarTimePeriodMonthInfo, selectCalendarTimePeriodMonthStartWeekDay, selectCurrentMonth } from '../../../store/selectors/calendar.selectors';
 
 @Component({
   selector: 'app-mcstm-calendar-day',
@@ -11,8 +11,11 @@ import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePer
 })
 export class McstmCalendarDayComponent {
 
-
+  public timePeriodDate$ : Observable<Date> = this.store$.pipe(select(selectCalendarTimePeriodDate));
   public timePeriodMonthInfo$: Observable<any> = this.store$.pipe(select(selectCalendarTimePeriodMonthInfo));
+  public currentMonth$: Observable<any> = this.store$.pipe(select(selectCurrentMonth));
+
+
 
   constructor(private eRef: ElementRef, private store$:Store<CalendarState>) {
 
@@ -30,11 +33,11 @@ export class McstmCalendarDayComponent {
   }
 
   public goPrevMonth() {
-
+    this.store$.dispatch(decreaseMonth());
   }
 
   public goNextMonth() {
-
+    this.store$.dispatch(increaseMonth());
   }
 
 }

@@ -1,5 +1,6 @@
 import {createAction, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
 import { CalendarMode } from '../../dicts/calendar-mode.dict';
+import { DateHelper } from '../../helpers/date.helper';
 
 export const calendarNode = 'calendar';
 
@@ -14,7 +15,6 @@ export const closeCalendar = createAction('[CALENDAR] close');
 
 const d = new Date();
 const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-//const currentDate = new Date(2020, 2, 1);
 
 export interface CalendarState {
   selectedDate: Date;
@@ -30,24 +30,23 @@ const initialState: CalendarState = {
   calendarMode: CalendarMode.Days
 };
 
-
 export const calendarReducer = createReducer(
   initialState,
   on(increaseYear, state => ({
     ...state,
-   // year: state.year + 1
+    timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getFullYear() + 1))
   })),
   on(decreaseYear, state => ({
     ...state,
-   // year: state.year + 1
+    timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getFullYear() - 1))
   })),
   on(increaseMonth, state => ({
     ...state,
-    //year: state.year + 1
+    timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getMonth() + 1))
   })),
   on(decreaseMonth, state => ({
     ...state,
-   // year: state.year + 1
+    timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getMonth() - 1))
   })),
   on(selectDate, state => ({
     ...state,

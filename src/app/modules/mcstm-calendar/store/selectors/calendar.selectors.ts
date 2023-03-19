@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { monthNames } from '../../dicts/months.dict';
 import { CalendarDayItem } from '../../models/calendar-day-item';
 import { calendarNode, CalendarState } from '../reducers/calendar.reducer';
 
@@ -21,7 +22,7 @@ export const selectCalendarIsOpen = createSelector(
 
 
   // Выбранная дата (от нее считаем год и месяц)
-  export const selectCalendarTimePeriodDate= createSelector(
+  export const selectCalendarTimePeriodDate = createSelector(
     selectCalendarFeature,
     (state: CalendarState): Date => state.timePeriodDate
   );
@@ -40,14 +41,17 @@ export const selectCalendarIsOpen = createSelector(
     }
   );
 
+  export const selectCurrentMonth = createSelector(
+    selectCalendarFeature,
+    (state: CalendarState): string => {
+      return monthNames[state.timePeriodDate.getMonth()];
+    }
+  );
 
   export const selectCalendarTimePeriodMonthInfo = createSelector(
     selectCalendarFeature,
     (state: CalendarState): any => {
 
-     // console.log(state.timePeriodDate);
-
-      //console.log(state.timePeriodDate.getMonth() );
       const firstDayOfMonth = new Date(state.timePeriodDate.getFullYear(), state.timePeriodDate.getMonth(), 1);
       const startWeekDay: number = firstDayOfMonth.getDay() > 0 ? firstDayOfMonth.getDay() : 7;
       const countMonthDays: number = new Date(state.timePeriodDate.getFullYear(), state.timePeriodDate.getMonth() + 1, 0).getDate();
@@ -63,18 +67,14 @@ export const selectCalendarIsOpen = createSelector(
 
       for (let i = 0; i < gridCellsCount;i++) {
 
-
         let year = state.timePeriodDate.getFullYear();
         let month = state.timePeriodDate.getMonth();
         let day = (i + 2) - startWeekDay;
-
 
         const item = new CalendarDayItem();
         item.dayGridCellNum = i;
         item.date = (day > 0 && i < (daysFromStartGrid)) ? new Date(year, month, day) : null;
         days.push(item);
-
-        //console.log(i, day, item.date);
 
       }
 
