@@ -3,10 +3,9 @@ import { Component, OnInit, Input, Output, EventEmitter, HostListener, ElementRe
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { CalendarMode } from '../dicts/calendar-mode.dict';
-import { CalendarState, closeCalendar, openCalendar } from '../store/reducers/calendar.reducer';
+import { closeCalendar, openCalendar } from '../store/actions/calendar.actions';
+import { CalendarState } from '../store/reducers/calendar.reducer';
 import { selectCalendarDate, selectCalendarIsOpen, selectCalendarMode } from '../store/selectors/calendar.selectors';
-
-
 
 @Component({
   selector: 'app-mcstm-calendar',

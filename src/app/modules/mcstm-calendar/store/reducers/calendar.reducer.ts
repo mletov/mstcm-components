@@ -1,17 +1,10 @@
 import {Action, createAction, createFeatureSelector, createReducer, createSelector, on, props} from '@ngrx/store';
 import { CalendarMode } from '../../dicts/calendar-mode.dict';
 import { DateHelper } from '../../helpers/date.helper';
+import { closeCalendar, decreaseMonth, decreaseYear, increaseMonth, increaseYear, openCalendar, setSelectedDate, setTimePeriodDate } from '../actions/calendar.actions';
 
 export const calendarNode = 'calendar';
 
-export const increaseYear = createAction('[CALENDAR] increase year');
-export const decreaseYear = createAction('[CALENDAR] decrease year');
-export const increaseMonth = createAction('[CALENDAR] increase month');
-export const decreaseMonth = createAction('[CALENDAR] decrease month');
-export const openCalendar = createAction('[CALENDAR] open');
-export const closeCalendar = createAction('[CALENDAR] close');
-export const setSelectedDate = createAction('[CALENDAR] Select date', props<{date: Date; }>());
-export const setTimePeriodDate = createAction('[CALENDAR] Set time period date', props<{date: Date; }>());
 
 const d = new Date();
 const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -24,8 +17,8 @@ export interface CalendarState {
 }
 
 const initialState: CalendarState = {
-  selectedDate: currentDate,
-  timePeriodDate: currentDate,
+  selectedDate: structuredClone(currentDate),
+  timePeriodDate: structuredClone(currentDate),
   isOpen: false,
   calendarMode: CalendarMode.Days
 };
@@ -42,10 +35,12 @@ export const calendarReducer = createReducer(
   })),
   on(increaseMonth, state => ({
     ...state,
+    //timePeriodDate: new Date()
     timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getMonth() + 1))
   })),
   on(decreaseMonth, state => ({
     ...state,
+    //timePeriodDate: new Date()
     timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getMonth() - 1))
   })),
   on(openCalendar, state => ({
@@ -56,6 +51,7 @@ export const calendarReducer = createReducer(
     ...state,
     isOpen: false
   })),
+
   on(setSelectedDate, (state, { date }) => ({
     ...state,
     timePeriodDate: date

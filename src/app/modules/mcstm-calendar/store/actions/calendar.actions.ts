@@ -1,66 +1,11 @@
-/*import { Action } from '@ngrx/store';
+import { createAction, props } from "@ngrx/store";
 
-export enum calendarActionsType {
-  increaseYear = '[CALENDAR] increase year',
-  decreaseYear = '[CALENDAR] decrease year',
-  increaseMonth = '[CALENDAR] increase month',
-  decreaseMonth = '[CALENDAR] decrease month',
-  selectDate = '[CALENDAR] select date',
-  setDefaultDate = '[CALENDAR] setDefaultDate',
-  openCalendar = '[CALENDAR] open',
-  closeCalendar = '[CALENDAR] close'
-}
+export const increaseYear = createAction('[CALENDAR] increase year');
+export const decreaseYear = createAction('[CALENDAR] decrease year');
+export const increaseMonth = createAction('[CALENDAR] increase month');
+export const decreaseMonth = createAction('[CALENDAR] decrease month');
+export const openCalendar = createAction('[CALENDAR] open');
+export const closeCalendar = createAction('[CALENDAR] close');
+export const setSelectedDate = createAction('[CALENDAR] Select date', props<{date: Date; }>());
+export const setTimePeriodDate = createAction('[CALENDAR] Set time period date', props<{date: Date; }>());
 
-export class CalendarIncreaseYearAction implements Action {
-  readonly type = calendarActionsType.increaseYear;
-}
-
-export class CalendarDecreaseYearAction implements Action {
-  readonly type = calendarActionsType.decreaseYear;
-}
-
-export class CalendarIncreaseMonthAction implements Action {
-  readonly type = calendarActionsType.increaseMonth;
-}
-
-export class CalendarDecreaseMonthAction implements Action {
-  readonly type = calendarActionsType.decreaseMonth;
-}
-
-export class CalendarSelectDateAction implements Action {
-  readonly type = calendarActionsType.selectDate;
-
-  constructor(public payload: {
-    selectedDate: number;
-  }) {
-  }
-
-}
-
-export class CalendarSetDefaultDateAction implements Action {
-  readonly type = calendarActionsType.setDefaultDate;
-
-  constructor(public payload: {
-    selectedDate: number;
-  }) {
-  }
-}
-
-export class OpenCalendarAction implements Action {
-  readonly type = calendarActionsType.openCalendar;
-}
-
-export class CloseCalendarAction implements Action {
-  readonly type = calendarActionsType.closeCalendar
-}
-
-export type CalendarActions = CalendarIncreaseYearAction
-  | CalendarDecreaseYearAction
-  | CalendarIncreaseMonthAction
-  | CalendarDecreaseMonthAction
-  | CalendarSelectDateAction
-  | CalendarSetDefaultDateAction
-  | OpenCalendarAction
-  | CloseCalendarAction;
-
-*/

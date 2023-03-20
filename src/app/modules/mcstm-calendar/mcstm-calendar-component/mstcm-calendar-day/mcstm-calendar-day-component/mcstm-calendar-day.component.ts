@@ -1,7 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CalendarState, decreaseMonth, increaseMonth, setSelectedDate, setTimePeriodDate } from '../../../store/reducers/calendar.reducer';
+import { decreaseMonth, increaseMonth, setSelectedDate, setTimePeriodDate } from '../../../store/actions/calendar.actions';
+import { CalendarState } from '../../../store/reducers/calendar.reducer';
 import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePeriodMonthCountDays, selectCalendarTimePeriodMonthInfo, selectCalendarTimePeriodMonthStartWeekDay, selectCurrentMonth } from '../../../store/selectors/calendar.selectors';
 
 @Component({
@@ -13,7 +14,6 @@ export class McstmCalendarDayComponent {
 
   public timePeriodDate$ : Observable<Date> = this.store$.pipe(select(selectCalendarTimePeriodDate));
   public selectedDate$ : Observable<Date> = this.store$.pipe(select(selectCalendarDate));
-
   public timePeriodMonthInfo$: Observable<any> = this.store$.pipe(select(selectCalendarTimePeriodMonthInfo));
   public currentMonth$: Observable<any> = this.store$.pipe(select(selectCurrentMonth));
 
@@ -21,12 +21,17 @@ export class McstmCalendarDayComponent {
 
   }
 
+  //Выбор даты
   public selectDate(event:any, timePeriodDate:Date) {
+
     const target = event.target || event.srcElement || event.currentTarget;
     const dayNum: number = parseInt(target.innerHTML.trim());
-    const newDate:Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
-    this.store$.dispatch(setTimePeriodDate({date: newDate}));
-    this.store$.dispatch(setSelectedDate({date: newDate}));
+
+    const nTimePeriodDate:Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
+    const nSelectedDate:Date = structuredClone(nTimePeriodDate);
+
+    this.store$.dispatch(setTimePeriodDate({date: nTimePeriodDate }));
+    this.store$.dispatch(setSelectedDate({date: nSelectedDate }));
 
   }
 
@@ -35,7 +40,7 @@ export class McstmCalendarDayComponent {
     this.store$.dispatch(decreaseMonth());
   }
 
-  //Перейти к  след месяцу
+  //Перейти к след месяцу
   public goNextMonth() {
     this.store$.dispatch(increaseMonth());
   }
@@ -50,7 +55,13 @@ export class McstmCalendarDayComponent {
 
    //Проверка на выбранную дату
   public isSelected(dayNum: number, timePeriodDate:Date, selectedDate:Date): boolean {
+    if (!dayNum) {
+      return false;
+    }
     const compareDate: Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
+    console.log("SELECTED DATE:", selectedDate);
+    //console.log(compareDate, selectedDate, (compareDate.getTime() === selectedDate.getTime()));
     return (compareDate.getTime() === selectedDate.getTime());
   }
+
 }
