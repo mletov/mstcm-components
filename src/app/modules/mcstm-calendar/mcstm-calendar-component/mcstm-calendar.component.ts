@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, HostListener, ElementRe
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { CalendarMode } from '../dicts/calendar-mode.dict';
+import { EventsService } from '../services/events.service';
 import { closeCalendar, openCalendar } from '../store/actions/calendar.actions';
 import { CalendarState } from '../store/reducers/calendar.reducer';
 import { selectCalendarDate, selectCalendarIsOpen, selectCalendarMode } from '../store/selectors/calendar.selectors';
@@ -10,7 +11,8 @@ import { selectCalendarDate, selectCalendarIsOpen, selectCalendarMode } from '..
 @Component({
   selector: 'app-mcstm-calendar',
   templateUrl: './mcstm-calendar.component.html',
-  styleUrls: ['./mcstm-calendar.component.scss']
+  styleUrls: ['./mcstm-calendar.component.scss'],
+  providers: [EventsService]
 })
 export class McstmCalendarComponent implements OnInit {
 
@@ -73,7 +75,7 @@ export class McstmCalendarComponent implements OnInit {
     }
   }
 
-  constructor(private eRef: ElementRef, private store$:Store<CalendarState>) {
+  constructor(private eRef: ElementRef, private store$:Store<CalendarState>, private eventsService:EventsService) {
     //console.log(store$);
 
    // this.isOpened$ = this.store$.pipe(select(selectCalendarIsOpen));
@@ -81,8 +83,11 @@ export class McstmCalendarComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    const data = await this.eventsService.getJSON();
+    console.log(data);
   }
+
 
 
 

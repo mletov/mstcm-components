@@ -59,7 +59,7 @@ export class McstmCalendarDayComponent {
       return false;
     }
     const compareDate: Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
-    console.log("SELECTED DATE:", selectedDate);
+    //console.log("SELECTED DATE:", selectedDate);
     //console.log(compareDate, selectedDate, (compareDate.getTime() === selectedDate.getTime()));
     return (compareDate.getTime() === selectedDate.getTime());
   }

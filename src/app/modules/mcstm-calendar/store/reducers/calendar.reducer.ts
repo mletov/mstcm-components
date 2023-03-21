@@ -35,12 +35,10 @@ export const calendarReducer = createReducer(
   })),
   on(increaseMonth, state => ({
     ...state,
-    //timePeriodDate: new Date()
     timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getMonth() + 1))
   })),
   on(decreaseMonth, state => ({
     ...state,
-    //timePeriodDate: new Date()
     timePeriodDate: new Date(state.timePeriodDate.setMonth(state.timePeriodDate.getMonth() - 1))
   })),
   on(openCalendar, state => ({
@@ -51,7 +49,6 @@ export const calendarReducer = createReducer(
     ...state,
     isOpen: false
   })),
-
   on(setSelectedDate, (state, { date }) => ({
     ...state,
     timePeriodDate: date
