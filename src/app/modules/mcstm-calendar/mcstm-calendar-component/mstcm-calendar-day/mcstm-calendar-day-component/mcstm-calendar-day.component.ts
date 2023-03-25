@@ -67,4 +67,15 @@ export class McstmCalendarDayComponent {
     return (compareDate.getTime() === selectedDate.getTime());
   }
 
+    //Проверка на правздничный день
+    public isHolyday(dayNum: number, timePeriodDate:Date, holydays: Holyday[]): boolean {
+    if (!dayNum) {
+      return false;
+    }
+    const compareDate: Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
+    const dates:Date[] = holydays.map(x => x.date);
+   // console.log(compareDate, dates, !!dates.find(x => x.getTime() === compareDate.getTime()));
+    return !!dates.find(x => x.getTime() === compareDate.getTime());
+  }
+
 }

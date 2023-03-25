@@ -3,54 +3,57 @@
 {{startWeekDay$ | async}}
 {{timePeriodMonthInfo$ | async }}
 -->
-
+<!--
 <ng-container *ngIf="holydays$ | async as holidays">
 
-  Праздник: {{holidays[0]}}
+  Праздник: {{holidays[0].date}}
 </ng-container>
+-->
 
-<ng-container *ngIf="timePeriodMonthInfo$ | async as info">
+<ng-container *ngIf="holydays$ | async as holydays">
+  <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
 
-        <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">
+          <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">
 
-                  <ng-container *ngIf="selectedDate$ | async as tSelectedDate">
-                            <div class="mcstm-calendar__days_navigation">
-                              <div class="arrow" (click)="goPrevMonth()" title="Предыдущий месяц">&#9664;</div>
-                              <div class="mcstm-calendar__days_navigation_current-month">
-                                {{currentMonth$ | async }}
-                                <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">
-                                    {{timePeriodDate.getFullYear() }}
-                                  </ng-container>
+                    <ng-container *ngIf="selectedDate$ | async as tSelectedDate">
+                              <div class="mcstm-calendar__days_navigation">
+                                <div class="arrow" (click)="goPrevMonth()" title="Предыдущий месяц">&#9664;</div>
+                                <div class="mcstm-calendar__days_navigation_current-month">
+                                  {{currentMonth$ | async }}
+                                  <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">
+                                      {{timePeriodDate.getFullYear() }}
+                                    </ng-container>
+                                </div>
+                                <div class="arrow" (click)="goNextMonth()" title="Следующий месяц">&#9654;</div>
                               </div>
-                              <div class="arrow" (click)="goNextMonth()" title="Следующий месяц">&#9654;</div>
-                            </div>
-                            <div class="mcstm-calendar__days">
+                              <div class="mcstm-calendar__days">
 
-                                <div class="week-day">Пн</div>
-                                <div class="week-day">Вт</div>
-                                <div class="week-day">Ср</div>
-                                <div class="week-day">Чт</div>
-                                <div class="week-day">Пт</div>
-                                <div class="week-day">Сб</div>
-                                <div class="week-day">Вс</div>
+                                  <div class="week-day">Пн</div>
+                                  <div class="week-day">Вт</div>
+                                  <div class="week-day">Ср</div>
+                                  <div class="week-day">Чт</div>
+                                  <div class="week-day">Пт</div>
+                                  <div class="week-day">Сб</div>
+                                  <div class="week-day">Вс</div>
 
-                                <ng-container *ngFor='let day of info.days;let i = index' >
+                                  <ng-container *ngFor='let day of info.days;let i = index' >
 
-                                          <div [ngClass]="{
-                                              'day': 'true',
-                                              'empty': !day.dayNum,
-                                              'selected': isSelected(day.dayNum, timePeriodDate, tSelectedDate),
-                                              'today': isToday(day.dayNum, timePeriodDate)
-                                            }"
-                                            (click)="day.dayNum ? selectDate($event, timePeriodDate) : null">
-                                            {{day.dayNum}}
-                                          </div>
+                                            <div [ngClass]="{
+                                                'day': 'true',
+                                                'empty': !day.dayNum,
+                                                'selected': isSelected(day.dayNum, timePeriodDate, tSelectedDate),
+                                                'today': isToday(day.dayNum, timePeriodDate),
+                                                'holyday': isHolyday(day.dayNum, timePeriodDate, holydays)
+                                              }"
+                                              (click)="day.dayNum ? selectDate($event, timePeriodDate) : null">
+                                              {{day.dayNum}}
+                                            </div>
 
-                                </ng-container>
+                                  </ng-container>
 
-                            </div>
-                  </ng-container>
+                              </div>
+                    </ng-container>
 
-        </ng-container>
+          </ng-container>
+  </ng-container>
 </ng-container>
-
