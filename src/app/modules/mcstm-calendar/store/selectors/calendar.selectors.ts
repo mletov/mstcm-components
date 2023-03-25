@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { monthNames } from '../../dicts/months.dict';
 import { CalendarDayItem } from '../../models/calendar-day-item';
+import { Holyday } from '../../models/holyday';
 import { calendarNode, CalendarState } from '../reducers/calendar.reducer';
 
 export const selectCalendarFeature = createFeatureSelector<CalendarState>(calendarNode);
@@ -83,3 +84,10 @@ export const selectCalendarIsOpen = createSelector(
       return monthInfo;
     }
   );
+
+  export const selectHolydays = createSelector(
+    selectCalendarFeature,
+    (state: CalendarState): Holyday[] => state.holydays
+  );
+
+

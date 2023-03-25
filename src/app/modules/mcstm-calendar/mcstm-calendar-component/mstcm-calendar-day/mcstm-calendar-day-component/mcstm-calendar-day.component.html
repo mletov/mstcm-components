@@ -4,6 +4,11 @@
 {{timePeriodMonthInfo$ | async }}
 -->
 
+<ng-container *ngIf="holydays$ | async as holidays">
+
+  Праздник: {{holidays[0]}}
+</ng-container>
+
 <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
 
         <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">

@@ -1,9 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { decreaseMonth, increaseMonth, setSelectedDate, setTimePeriodDate } from '../../../store/actions/calendar.actions';
+import { Holyday } from '../../../models/holyday';
+import { decreaseMonth, increaseMonth, loadHolydays, setSelectedDate, setTimePeriodDate } from '../../../store/actions/calendar.actions';
 import { CalendarState } from '../../../store/reducers/calendar.reducer';
-import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePeriodMonthCountDays, selectCalendarTimePeriodMonthInfo, selectCalendarTimePeriodMonthStartWeekDay, selectCurrentMonth } from '../../../store/selectors/calendar.selectors';
+import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePeriodMonthCountDays, selectCalendarTimePeriodMonthInfo, selectCalendarTimePeriodMonthStartWeekDay, selectCurrentMonth, selectHolydays } from '../../../store/selectors/calendar.selectors';
 
 @Component({
   selector: 'app-mcstm-calendar-day',
@@ -17,8 +18,12 @@ export class McstmCalendarDayComponent {
   public timePeriodMonthInfo$: Observable<any> = this.store$.pipe(select(selectCalendarTimePeriodMonthInfo));
   public currentMonth$: Observable<any> = this.store$.pipe(select(selectCurrentMonth));
 
-  constructor(private eRef: ElementRef, private store$:Store<CalendarState>) {
+  public holydays$: Observable<Holyday[]> = this.store$.pipe(
+    select(selectHolydays)
+  );
 
+  constructor(private eRef: ElementRef, private store$:Store<CalendarState>) {
+    this.store$.dispatch(loadHolydays());
   }
 
   //Выбор даты
@@ -59,8 +64,6 @@ export class McstmCalendarDayComponent {
       return false;
     }
     const compareDate: Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
-    //console.log("SELECTED DATE:", selectedDate);
-    //console.log(compareDate, selectedDate, (compareDate.getTime() === selectedDate.getTime()));
     return (compareDate.getTime() === selectedDate.getTime());
   }
 

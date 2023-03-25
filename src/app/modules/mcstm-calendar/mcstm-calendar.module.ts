@@ -8,7 +8,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { metaReducers, reducers } from './store/reducers';
 import { McstmCalendarComponent } from './mcstm-calendar-component/mcstm-calendar.component';
-import { AppEffects } from './store/effects/app.effects';
 import { environment } from './environments/environment';
 import { McstmGridComponent } from '../mcstm-grid/mcstm-grid/mcstm-grid.component';
 
@@ -17,6 +16,7 @@ import { McstmCalendarDayModule } from './mcstm-calendar-component/mstcm-calenda
 import { McstmCalendarMonthModule } from './mcstm-calendar-component/mcstm-calendar-month/mcstm-calendar-month.module';
 import { McstmCalendarYearModule } from './mcstm-calendar-component/mcstm-calendar-year/mcstm-calendar-year.module';
 import { HttpClientModule } from '@angular/common/http';
+import { Holydaysffects } from './store/effects/holydays.effects';
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
       metaReducers
     }),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([Holydaysffects]),
+    //EffectsModule.forFeature([AppEffects]),
     HttpClientModule,
     McstmCalendarDayModule,
     McstmCalendarMonthModule,

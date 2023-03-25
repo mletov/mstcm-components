@@ -1,7 +1,9 @@
 import {Action, createAction, createFeatureSelector, createReducer, createSelector, on, props} from '@ngrx/store';
 import { CalendarMode } from '../../dicts/calendar-mode.dict';
 import { DateHelper } from '../../helpers/date.helper';
-import { closeCalendar, decreaseMonth, decreaseYear, increaseMonth, increaseYear, openCalendar, setSelectedDate, setTimePeriodDate } from '../actions/calendar.actions';
+import { Holyday } from '../../models/holyday';
+import { closeCalendar, decreaseMonth, decreaseYear, holydaysLoadedError, holydaysLoadedSuccess, increaseMonth, increaseYear, loadHolydays, openCalendar, setSelectedDate, setTimePeriodDate } from '../actions/calendar.actions';
+
 
 export const calendarNode = 'calendar';
 
@@ -14,13 +16,15 @@ export interface CalendarState {
   timePeriodDate: Date;
   isOpen: boolean;
   calendarMode: CalendarMode;
+  holydays: Holyday[]
 }
 
 const initialState: CalendarState = {
   selectedDate: structuredClone(currentDate),
   timePeriodDate: structuredClone(currentDate),
   isOpen: false,
-  calendarMode: CalendarMode.Days
+  calendarMode: CalendarMode.Days,
+  holydays: []
 };
 
 export const calendarReducer = createReducer(
@@ -57,6 +61,16 @@ export const calendarReducer = createReducer(
     ...state,
     selectedDate: date
   })),
+
+  //Праздники
+  on(holydaysLoadedSuccess, (state, { holydays }) => ({
+    ...state,
+    holydays: holydays
+  })),
+  on(holydaysLoadedError, (state) => ({
+    ...state,
+    holydays: []
+  }))
 );
 
 
