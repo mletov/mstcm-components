@@ -13,10 +13,9 @@
 
 <ng-container *ngIf="holydays$ | async as holydays">
   <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
-
           <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">
-
                     <ng-container *ngIf="selectedDate$ | async as tSelectedDate">
+
                               <div class="mcstm-calendar__days_navigation">
                                 <div class="arrow" (click)="goPrevMonth()" title="Предыдущий месяц">&#9664;</div>
                                 <div class="mcstm-calendar__days_navigation_current-month">
@@ -46,7 +45,8 @@
                                                 'today': isToday(day.dayNum, timePeriodDate),
                                                 'holyday': isHolyday(day.dayNum, timePeriodDate, holydays)
                                               }"
-                                              (click)="day.dayNum ? selectDate($event, timePeriodDate) : null">
+                                              (click)="day.dayNum ? selectDate($event, timePeriodDate) : null"
+                                              title="{{getTitle(day.dayNum, timePeriodDate, holydays)}}">
                                               {{day.dayNum}}
                                             </div>
 

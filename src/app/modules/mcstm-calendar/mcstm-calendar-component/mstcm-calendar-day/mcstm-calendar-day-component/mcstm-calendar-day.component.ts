@@ -67,8 +67,8 @@ export class McstmCalendarDayComponent {
     return (compareDate.getTime() === selectedDate.getTime());
   }
 
-    //Проверка на праздничный день
-    public isHolyday(dayNum: number, timePeriodDate:Date, holydays: Holyday[]): boolean {
+  //Проверка на праздничный день
+  public isHolyday(dayNum: number, timePeriodDate:Date, holydays: Holyday[]): boolean {
       if (!dayNum || !holydays || !holydays.length) {
         return false;
       }
@@ -79,8 +79,21 @@ export class McstmCalendarDayComponent {
         return new Date(date.getTime() + date.getTimezoneOffset()*milisecondsInMinute);
       });
       console.log(dates);
-    // console.log(compareDate, dates, !!dates.find(x => x.getTime() === compareDate.getTime()));
       return !!dates.find(x => x.getTime() === compareDate.getTime());
+  }
+
+  //Получить заголовок
+  public getTitle(dayNum: number, timePeriodDate:Date, holydays: Holyday[]): string {
+    if (!dayNum || !holydays || !holydays.length) {
+      return "";
+    }
+    const compareDate: Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
+    holydays = holydays.map((x) => {
+      const date:Date = new Date(x.date);
+      const milisecondsInMinute = 60*1000;
+      return {date: new Date(date.getTime() + date.getTimezoneOffset()*milisecondsInMinute), name: x.name};
+    });
+    return holydays.find(x => x.date.getTime() === compareDate.getTime())?.name ?? '';
   }
 
 }
