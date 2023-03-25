@@ -24,6 +24,33 @@
     background: red;
   }
 
+  .day.selected.today {
+    background: rgb(153,204,204);
+    background: linear-gradient(180deg, rgba(153,204,204,1) 46%, rgba(255,228,196,1) 47%);
+  }
+
+  .day.selected.holyday {
+    background: rgb(255,0,0);
+    background: linear-gradient(180deg, rgba(255,0,0,1) 46%, rgba(255,228,196,1) 47%);
+  }
+
+  .day.today.holyday {
+    background: rgb(255,0,0);
+    background: linear-gradient(180deg, rgba(255,0,0,1) 46%, rgba(153,204,204,1) 47%);
+  }
+
+  .day.today.holyday.selected {
+    background: rgb(255,228,196);
+    background: linear-gradient(180deg, rgba(255,228,196,1) 24%, rgba(255,0,0,1) 47%, rgba(153,204,204,1) 66%);
+    border:1px solid #000000;
+  }
+
+  /*
+  #99cccc - blue
+  #ffe4c4 - bisque
+  red - #FF0000
+  */
+
   .day.empty {
     cursor: default;
   }

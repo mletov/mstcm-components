@@ -27,8 +27,8 @@ const initialState: CalendarState = {
   holydays: []
 };
 
-const testHolydays:Holyday[] = [{"date": new Date(2023,2,8), "name": "ДР"}, {"date": new Date(2023,3,1), "name": "День Дурака"}];
-console.log(testHolydays);
+//const testHolydays:Holyday[] = [{"date": new Date(2023,2,8), "name": "ДР"}, {"date": new Date(2023,3,1), "name": "День Дурака"}];
+//console.log(testHolydays);
 
 export const calendarReducer = createReducer(
   initialState,
@@ -68,7 +68,8 @@ export const calendarReducer = createReducer(
   //Праздники
   on(holydaysLoadedSuccess, (state, { holydays }) => ({
     ...state,
-    holydays: structuredClone(testHolydays)
+    holydays: holydays ?? []
+   // holydays: structuredClone(testHolydays)
   })),
   on(holydaysLoadedError, (state) => ({
     ...state,

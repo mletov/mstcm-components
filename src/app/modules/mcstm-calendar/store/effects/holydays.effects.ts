@@ -13,7 +13,7 @@ export class Holydaysffects {
     ofType(LOAD_HOLYDAYS),
     exhaustMap(() => this.holydaysService.getJSON()
       .pipe(
-        map(holydays => ({ type: HOLYDAYS_LOADED_SUCCESS, payload: holydays })),
+        map(holydays => ({ type: HOLYDAYS_LOADED_SUCCESS, holydays: holydays })),
         catchError(() => EMPTY)
       ))
     )
