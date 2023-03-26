@@ -10,7 +10,9 @@
   Праздник: {{holidays.length}}
 </ng-container>
 -->
-
+<!--
+<div *tooltip="let result from 2 and 3" >Сумма 2 + 3 = {{ result }}</div>
+-->
 <ng-container *ngIf="holydays$ | async as holydays">
   <ng-container *ngIf="timePeriodMonthInfo$ | async as info">
           <ng-container *ngIf="timePeriodDate$ | async as timePeriodDate">

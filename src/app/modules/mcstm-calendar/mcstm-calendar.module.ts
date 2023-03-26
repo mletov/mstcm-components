@@ -17,6 +17,7 @@ import { McstmCalendarMonthModule } from './mcstm-calendar-component/mcstm-calen
 import { McstmCalendarYearModule } from './mcstm-calendar-component/mcstm-calendar-year/mcstm-calendar-year.module';
 import { HttpClientModule } from '@angular/common/http';
 import { Holydaysffects } from './store/effects/holydays.effects';
+import { TooltipDirective } from './directives/tooltip.directive';
 
 
 @NgModule({
