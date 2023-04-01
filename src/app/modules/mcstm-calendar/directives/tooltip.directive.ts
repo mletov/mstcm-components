@@ -1,26 +1,66 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, EmbeddedViewRef, HostListener, Injector, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { TooltipComponent } from '../components/tooltip-component/tooltip/tooltip.component';
 
 @Directive({
   selector: '[tooltip]'
 })
-export class TooltipDirective implements OnInit {
+export class TooltipDirective  {
 
   constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {}
-
-  @Input('tooltipFrom')
-  from = 0;
-
-  @Input('tooltipAnd')
-  and = 0;
-
-  ngOnInit(): void {
-    this.viewContainer.createEmbeddedView(this.templateRef, {
-    //  console.log(this.from, this.and);
-      $implicit: this.from + this.and,
-    });
+  private elementRef: ElementRef,
+  private appRef: ApplicationRef,
+  private componentFactoryResolver: ComponentFactoryResolver,
+  private injector: Injector) {
   }
+
+  @Input() tooltip = {};
+
+  private componentRef: ComponentRef<any> = null;
+
+
+  @HostListener('mouseenter')
+  onMouseEnter(): void {
+    if (this.componentRef === null) {
+        const componentFactory =
+              this.componentFactoryResolver.resolveComponentFactory(
+              TooltipComponent);
+        this.componentRef = componentFactory.create(this.injector);
+        this.appRef.attachView(this.componentRef.hostView);
+        const domElem =
+              (this.componentRef.hostView as EmbeddedViewRef<any>)
+              .rootNodes[0] as HTMLElement;
+        document.body.appendChild(domElem);
+        this.setTooltipComponentProperties();
+    }
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave(): void {
+    this.destroy();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy();
+  }
+
+  destroy(): void {
+    if (this.componentRef !== null) {
+      this.appRef.detachView(this.componentRef.hostView);
+      this.componentRef.destroy();
+      this.componentRef = null;
+    }
+  }
+
+  private setTooltipComponentProperties() {
+    if (this.componentRef !== null) {
+      this.componentRef.instance.tooltip = this.tooltip;
+      const {left, right, bottom} =
+            this.elementRef.nativeElement.getBoundingClientRect();
+      this.componentRef.instance.left = (right - left) / 2 + left;
+      this.componentRef.instance.top = bottom;
+    }
+  }
+
+
 
 }

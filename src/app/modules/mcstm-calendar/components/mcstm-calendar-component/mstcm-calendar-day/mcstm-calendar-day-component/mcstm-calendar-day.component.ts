@@ -1,10 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Holyday } from '../../../models/holyday';
-import { decreaseMonth, increaseMonth, loadHolydays, setSelectedDate, setTimePeriodDate } from '../../../store/actions/calendar.actions';
-import { CalendarState } from '../../../store/reducers/calendar.reducer';
-import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePeriodMonthCountDays, selectCalendarTimePeriodMonthInfo, selectCalendarTimePeriodMonthStartWeekDay, selectCurrentMonth, selectHolydays } from '../../../store/selectors/calendar.selectors';
+import { Holyday } from '../../../../models/holyday';
+import { decreaseMonth, increaseMonth, loadHolydays, setSelectedDate, setTimePeriodDate } from '../../../../store/actions/calendar.actions';
+import { CalendarState } from '../../../../store/reducers/calendar.reducer';
+import { selectCalendarDate, selectCalendarTimePeriodDate, selectCalendarTimePeriodMonthCountDays, selectCalendarTimePeriodMonthInfo, selectCalendarTimePeriodMonthStartWeekDay, selectCurrentMonth, selectHolydays } from '../../../../store/selectors/calendar.selectors';
 
 @Component({
   selector: 'app-mcstm-calendar-day',
@@ -83,17 +83,17 @@ export class McstmCalendarDayComponent {
   }
 
   //Получить заголовок
-  public getTitle(dayNum: number, timePeriodDate:Date, holydays: Holyday[]): string {
+  public getTooltip(dayNum: number, timePeriodDate:Date, holydays: Holyday[]): Holyday {
     if (!dayNum || !holydays || !holydays.length) {
-      return "";
+      return null;
     }
     const compareDate: Date = new Date(timePeriodDate.getFullYear(), timePeriodDate.getMonth(), dayNum);
     holydays = holydays.map((x) => {
       const date:Date = new Date(x.date);
       const milisecondsInMinute = 60*1000;
-      return {date: new Date(date.getTime() + date.getTimezoneOffset()*milisecondsInMinute), name: x.name};
+      return {date: new Date(date.getTime() + date.getTimezoneOffset()*milisecondsInMinute), name: x.name, url: x.url};
     });
-    return holydays.find(x => x.date.getTime() === compareDate.getTime())?.name ?? '';
+    return holydays.find(x => x.date.getTime() === compareDate.getTime());
   }
 
 }

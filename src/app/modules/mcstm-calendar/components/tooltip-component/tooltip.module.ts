@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { McstmCalendarDayComponent } from './mcstm-calendar-day-component/mcstm-calendar-day.component';
+import { TooltipComponent } from './tooltip/tooltip.component';
+//import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from '../../directives/tooltip.directive';
 
 @NgModule({
   declarations: [
-    McstmCalendarDayComponent,
+    TooltipComponent,
     TooltipDirective
-  ],
-  exports: [
-    McstmCalendarDayComponent
   ],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [TooltipDirective]
 })
-export class McstmCalendarDayModule { }
+export class TooltipModule { }

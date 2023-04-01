@@ -48,7 +48,7 @@
                                                 'holyday': isHolyday(day.dayNum, timePeriodDate, holydays)
                                               }"
                                               (click)="day.dayNum ? selectDate($event, timePeriodDate) : null"
-                                              title="{{getTitle(day.dayNum, timePeriodDate, holydays)}}">
+                                              [tooltip]="getTooltip(day.dayNum, timePeriodDate, holydays)">
                                               {{day.dayNum}}
                                             </div>
 
@@ -60,4 +60,8 @@
           </ng-container>
   </ng-container>
 </ng-container>
+
+<!--
+  getTitle(day.dayNum, timePeriodDate, holydays)
+-->
 
